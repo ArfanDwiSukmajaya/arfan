@@ -55,7 +55,7 @@ function Navbar() {
         >
           {/* Logo Section */}
           <div className='flex items-center space-x-2'>
-            <span className='text-xl text-black'>ADS__</span>
+            <span className='text-xl text-black'>ADS</span>
           </div>
 
           {/* Menu Items */}

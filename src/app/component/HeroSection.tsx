@@ -15,9 +15,9 @@ function HeroSection() {
             <span className="text-2xl text-gray-900 leading-tight">
               Hi, I am
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 bg-clip-text text-transparent">
+            <h3 className="text-5xl md:text-4xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 bg-clip-text text-transparent">
               Arfan Dwi Sukmajaya
-            </h2>
+            </h3>
             <p className="mt-4 text-base md:text-lg text-gray-600 max-w-lg mx-auto md:mx-0">
               A dedicated and experienced Fullstack Developer with a proven track record of designing, developing, and maintaining large-scale web applications.
             </p>
