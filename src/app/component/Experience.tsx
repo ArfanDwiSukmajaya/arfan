@@ -8,7 +8,7 @@ function ExperienceTimeline() {
       date: "Februari 2023 - Now",
       description: [
         "Fully responsible for the application development lifecycle, from design and implementation to maintenance.",
-        "Successfully developed and launched new features for various projects, including G-NOW and Riplay, to enhance core system functionality.",
+        "Revamped and modernized legacy systems using cutting-edge technologies, transforming platforms like G-NOW and Riplay into high-performance, scalable solutions.",
         "Optimized and improved system performance on projects such as Enhance Pencairan Dana NDS Fase 3 and Enhancement WMP Fase 1.",
         "Participated in the development of JATI (Jaringan Automotif Terintegrasi Interaktif) to integrate automotive services.",
         "Worked within an Agile team to address technical challenges and ensure timely project completion.",

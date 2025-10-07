@@ -19,8 +19,7 @@ function HeroSection() {
               Arfan Dwi Sukmajaya
             </h3>
             <p className="mt-4 text-base md:text-lg text-gray-600 max-w-lg mx-auto md:mx-0">
-              A dedicated and experienced Fullstack Developer with a proven track record of designing, developing, and maintaining large-scale web applications.
-            </p>
+              Hi, I’m Arfan Dwi Sukmajaya. I’m a Fullstack Developer who loves turning ideas into high-quality, scalable web applications. With hands-on experience in both frontend and backend development, I create solutions that are not just functional, but also fast, reliable, and user-friendly.            </p>
 
             {/* Button */}
             <div className="mt-8 flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
