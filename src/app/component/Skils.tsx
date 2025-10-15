@@ -26,13 +26,13 @@ function FloatingSkills() {
     <div className="py-12 md:py-24 px-4 md:px-8">
       {/* Judul di atas */}
       <div className="flex justify-center w-full max-w-[90vw] md:max-w-[70vw] mx-auto mb-12">
-        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 bg-clip-text text-transparent">
+        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
           My Skills
         </h2>
       </div>
 
       {/* Wadah utama konten dengan lebar responsif */}
-      <div className="w-full max-w-[90vw] md:max-w-[70vw] mx-auto bg-white rounded-2xl border shadow-2xs p-10 relative overflow-hidden min-h-[400px]">
+      <div className="w-full max-w-[90vw] md:max-w-[70vw] mx-auto bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700 shadow-2xs p-10 relative overflow-hidden min-h-[400px]">
         <div className="absolute inset-0 flex items-center justify-center">
           {skills.map((skill, index) => {
             const positions = [
@@ -60,7 +60,7 @@ function FloatingSkills() {
             return (
               <div
                 key={index}
-                className={`absolute flex items-center justify-center rounded-full border border-gray-200 shadow-md animate-bubble hover:animate-none ${skill.size}`}
+                className={`absolute flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-600 shadow-md animate-bubble hover:animate-none ${skill.size}`}
                 style={{
                   top: `${pos.top}%`,
                   left: `${pos.left}%`,

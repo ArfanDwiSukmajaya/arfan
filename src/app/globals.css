@@ -22,19 +22,34 @@ body {
   font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Dark mode styles */
+.dark body {
+  background: #0a0a0a;
+  color: #ededed;
 }
 
+/* Grid pattern for light mode */
 .bg-striped-pattern {
   background-color: #ffffff;
-  /* Warna latar belakang */
   background-image:
     linear-gradient(to right, #f4f1f1 1px, transparent 0.1px),
     linear-gradient(to bottom, #f4f1f1 1px, transparent 0.1px);
   background-size: 43px 43px;
-  /* Ukuran pola */
 }
+
+/* Grid pattern for dark mode */
+.dark .bg-striped-pattern {
+  background-color: #0a0a0a;
+  background-image:
+    linear-gradient(to right, #1f1f1f 1px, transparent 0.1px),
+    linear-gradient(to bottom, #1f1f1f 1px, transparent 0.1px);
+  background-size: 43px 43px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 
 /* Floating bubble animation (Tailwind v4 custom utility) */
 @keyframes bubble {
@@ -70,4 +85,12 @@ html {
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+/* Line clamp utility untuk membatasi teks */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

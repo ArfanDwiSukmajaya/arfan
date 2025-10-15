@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import React from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 interface MobileNavbarProps {
   isHidden: boolean;
@@ -8,16 +9,18 @@ interface MobileNavbarProps {
 }
 
 function MobileNavbar({ isHidden, activeSection }: MobileNavbarProps) {
+  const { isDark, toggleTheme } = useTheme();
+
   return (
     <div className={`md:hidden fixed bottom-0 left-0 right-0 z-50 transition-transform duration-300 ${isHidden ? 'translate-y-full' : 'translate-y-0'}`}>
-      <div className='flex justify-center items-center bg-white/90 backdrop-blur-md border-t border-gray-200 px-4 py-3'>
-        <div className='flex items-center justify-around w-full max-w-md space-x-2'>
+      <div className='flex justify-center items-center bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 px-4 py-3'>
+        <div className='flex items-center justify-around w-full max-w-md space-x-1'>
           {/* About Icon */}
           <Link
             href='#about'
             className={`relative p-3 rounded-full transition-all duration-200 ${activeSection === 'about'
-              ? 'bg-blue-100 text-blue-600'
-              : 'text-gray-600 hover:bg-gray-100'
+              ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
+              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             title="About"
           >
@@ -30,8 +33,8 @@ function MobileNavbar({ isHidden, activeSection }: MobileNavbarProps) {
           <Link
             href='#experience'
             className={`relative p-3 rounded-full transition-all duration-200 ${activeSection === 'experience'
-              ? 'bg-blue-100 text-blue-600'
-              : 'text-gray-600 hover:bg-gray-100'
+              ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
+              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             title="Experience"
           >
@@ -44,8 +47,8 @@ function MobileNavbar({ isHidden, activeSection }: MobileNavbarProps) {
           <Link
             href='#portfolio'
             className={`relative p-3 rounded-full transition-all duration-200 ${activeSection === 'portfolio'
-              ? 'bg-blue-100 text-blue-600'
-              : 'text-gray-600 hover:bg-gray-100'
+              ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
+              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             title="Portfolio"
           >
@@ -54,10 +57,27 @@ function MobileNavbar({ isHidden, activeSection }: MobileNavbarProps) {
             </svg>
           </Link>
 
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-3 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+            title="Toggle dark mode"
+          >
+            {isDark ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            )}
+          </button>
+
           {/* Contact Icon */}
           <a
             href="mailto:jayaarfan92@gmail.com"
-            className="p-3 rounded-full text-gray-600 hover:bg-gray-100 transition-all duration-200"
+            className="p-3 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
             title="Contact Me"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
