@@ -1,13 +1,18 @@
+"use client";
+
 import React from 'react';
 import Image from 'next/image';
+import { useLanguage } from '../context/LanguageContext';
 
 function About() {
+  const { t } = useLanguage();
+
   return (
     <div id="about" className="py-12 md:py-24 px-4 md:px-8">
       {/* Judul About Me - Tetap di tengah */}
       <div className="flex justify-center w-full max-w-[90vw] md:max-w-[70vw] mx-auto mb-12">
         <h3 className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-          About Me
+          {t('about.title')}
         </h3>
       </div>
 
@@ -17,10 +22,10 @@ function About() {
           {/* Kolom Kiri: Teks Informasi */}
           <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10">
             <span className="inline-block bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300 text-xs font-semibold px-3 py-1 rounded-full mb-4">
-              it is me
+              {t('about.tag')}
             </span>
             <p className="mt-2 text-base md:text-lg text-gray-700 dark:text-gray-300 leading-8 text-pretty max-w-prose mx-auto md:mx-0">
-              My journey into the tech world began with a simple curiosity about how things work, and it quickly evolved into a passion for building intuitive and impactful digital experiences. As a Full-Stack Developer, I believe that great code is not just about functionality—it is about creating a <span className="font-semibold text-gray-900 dark:text-white">seamless and delightful user experience</span>. I constantly strive to merge beautiful design with optimal performance, ensuring every project I build is not only visually stunning but also <span className="font-semibold text-gray-900 dark:text-white">works flawlessly</span>.
+              {t('about.journey')}
             </p>
           </div>
 
@@ -38,7 +43,7 @@ function About() {
               {/* Konten Kartu */}
               <div className="flex items-center">
                 <span className="inline-block w-4 h-4 bg-purple-500 rounded-full mr-3"></span>
-                <span className="text-xs md:text-sm font-semibold text-gray-800 dark:text-gray-200">Thinking</span>
+                <span className="text-xs md:text-sm font-semibold text-gray-800 dark:text-gray-200">{t('about.thinking')}</span>
               </div>
             </div>
 
@@ -48,7 +53,7 @@ function About() {
               {/* Konten Kartu */}
               <div className="flex items-center">
                 <span className="inline-block w-4 h-4 bg-orange-500 rounded-full mr-3"></span>
-                <span className="text-xs md:text-sm font-semibold text-gray-800 dark:text-gray-200">Design</span>
+                <span className="text-xs md:text-sm font-semibold text-gray-800 dark:text-gray-200">{t('about.design')}</span>
               </div>
             </div>
 
@@ -58,7 +63,7 @@ function About() {
               {/* Konten Kartu */}
               <div className="flex items-center">
                 <span className="inline-block w-4 h-4 bg-blue-500 rounded-full mr-3"></span>
-                <span className="text-xs md:text-sm font-semibold text-gray-800 dark:text-gray-200">Execution</span>
+                <span className="text-xs md:text-sm font-semibold text-gray-800 dark:text-gray-200">{t('about.execution')}</span>
               </div>
             </div>
           </div>

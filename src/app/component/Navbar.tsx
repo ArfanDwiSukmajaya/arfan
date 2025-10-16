@@ -2,12 +2,15 @@
 import Link from 'next/link';
 import React from 'react';
 import MobileNavbar from './MobileNavbar';
+import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 function Navbar() {
   const [isHidden, setIsHidden] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('');
   const { isDark, toggleTheme } = useTheme();
+  const { t } = useLanguage();
 
   React.useEffect(() => {
     const sections = ['about', 'experience', 'portfolio'];
@@ -69,7 +72,7 @@ function Navbar() {
                 : 'text-gray-700 dark:text-gray-300'
                 }`}
             >
-              About
+              {t('nav.about')}
             </Link>
             <Link
               href='#experience'
@@ -78,7 +81,7 @@ function Navbar() {
                 : 'text-gray-700 dark:text-gray-300'
                 }`}
             >
-              Experience
+              {t('nav.experience')}
             </Link>
             <Link
               href='#portfolio'
@@ -87,12 +90,15 @@ function Navbar() {
                 : 'text-gray-700 dark:text-gray-300'
                 }`}
             >
-              Portfolio
+              {t('nav.portfolio')}
             </Link>
           </div>
 
           {/* Action Buttons */}
           <div className='flex items-center space-x-3'>
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleTheme}
@@ -114,7 +120,7 @@ function Navbar() {
               href="mailto:jayaarfan92@gmail.com"
               className='px-6 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold shadow-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200 inline-block'
             >
-              Contact Me
+              {t('nav.contact')}
             </a>
           </div>
         </div>

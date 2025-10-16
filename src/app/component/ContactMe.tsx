@@ -1,13 +1,18 @@
+"use client";
+
 import React from 'react';
 import Image from 'next/image';
+import { useLanguage } from '../context/LanguageContext';
 
 function ContactSection() {
+  const { t } = useLanguage();
+
   return (
     <div className="py-12 md:py-24 px-4 md:px-8">
       {/* Judul */}
       <div className="flex justify-center w-full max-w-[90vw] md:max-w-[70vw] mx-auto mb-12">
         <h3 className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-          Get In Touch
+          {t('contact.title')}
         </h3>
       </div>
 

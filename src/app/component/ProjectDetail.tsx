@@ -3,6 +3,9 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface ProjectDetailProps {
   project: {
@@ -25,6 +28,8 @@ interface ProjectDetailProps {
 
 function ProjectDetail({ project }: ProjectDetailProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { t } = useLanguage();
+  const { isDark, toggleTheme } = useTheme();
 
   const openModal = (imageSrc: string) => {
     setSelectedImage(imageSrc);
@@ -36,19 +41,51 @@ function ProjectDetail({ project }: ProjectDetailProps) {
 
   return (
     <div className="min-h-screen bg-striped-pattern">
-      {/* Header Section */}
-      <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-md shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <Link
-            href="/#portfolio"
-            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 mb-6 transition-colors"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Kembali ke Portfolio
-          </Link>
+      {/* Fixed Header with Dark Mode & Language Switcher */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-6xl mx-auto px-4 py-4">
+          <div className="flex justify-between items-center">
+            {/* Back Button */}
+            <Link
+              href="/#portfolio"
+              className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span className="hidden sm:inline">{t('project.back_to_portfolio')}</span>
+              <span className="sm:hidden">Back</span>
+            </Link>
 
+            {/* Dark Mode & Language Switcher */}
+            <div className="flex items-center space-x-3">
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+
+              {/* Dark Mode Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+                aria-label="Toggle dark mode"
+              >
+                {isDark ? (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Header Section with spacing for fixed header */}
+      <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-md shadow-sm pt-20">
+        <div className="max-w-6xl mx-auto px-4 py-8">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             {project.title}
           </h1>
@@ -71,7 +108,7 @@ function ProjectDetail({ project }: ProjectDetailProps) {
         <div className="max-w-4xl mx-auto space-y-12">
           {/* Project Overview */}
           <section>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Project Overview</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('project.overview')}</h2>
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               {project.fullDescription}
             </p>
@@ -79,7 +116,7 @@ function ProjectDetail({ project }: ProjectDetailProps) {
 
           {/* Features */}
           <section>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Key Features</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('project.features')}</h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.features.map((feature, index) => (
                 <li key={index} className="flex items-start">

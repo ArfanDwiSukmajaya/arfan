@@ -1,9 +1,12 @@
+"use client";
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLanguage } from '../context/LanguageContext';
 
 function ProjectsSection() {
-
+  const { t } = useLanguage();
   const projects = [
     {
       title: "WMP GNow",
@@ -55,7 +58,7 @@ function ProjectsSection() {
       {/* Judul "Core Features" / "Portfolio" */}
       <div className="flex justify-center w-full min-w-[70vw] mx-auto mb-12">
         <h3 className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-          Portofolio
+          {t('portfolio.title')}
         </h3>
       </div>
 
@@ -76,7 +79,7 @@ function ProjectsSection() {
                 href={project.detailLink}
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
               >
-                Detail
+                {t('portfolio.view_details')}
               </Link>
               {project.codeLink && (
                 <a
@@ -85,7 +88,7 @@ function ProjectsSection() {
                   rel="noopener noreferrer"
                   className="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-200"
                 >
-                  Code
+                  {t('portfolio.view_code')}
                 </a>
               )}
             </div>

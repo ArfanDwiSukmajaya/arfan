@@ -1,7 +1,11 @@
+"use client";
+
 import React from 'react';
 import Image from 'next/image';
+import { useLanguage } from '../context/LanguageContext';
 
 function FloatingSkills() {
+  const { t } = useLanguage();
   const skills = [
     { icon: '/github.svg', size: 'h-24 w-24' },
     { icon: '/spring-boot.svg', size: 'h-20 w-20' },
@@ -27,7 +31,7 @@ function FloatingSkills() {
       {/* Judul di atas */}
       <div className="flex justify-center w-full max-w-[90vw] md:max-w-[70vw] mx-auto mb-12">
         <h2 className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-          My Skills
+          {t('skills.title')}
         </h2>
       </div>
 

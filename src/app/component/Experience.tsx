@@ -1,6 +1,10 @@
+"use client";
+
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 function ExperienceTimeline() {
+  const { t } = useLanguage();
   const experiences = [
     {
       company: "Adira Finance",
@@ -21,7 +25,7 @@ function ExperienceTimeline() {
       {/* Judul */}
       <div className="flex justify-center w-full max-w-[90vw] md:max-w-[70vw] mx-auto mb-12">
         <h3 className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-          Work Experience
+          {t('experience.title')}
         </h3>
       </div>
 

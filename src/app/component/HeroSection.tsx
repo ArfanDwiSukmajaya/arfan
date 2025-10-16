@@ -1,7 +1,12 @@
+"use client";
+
 import React from 'react';
 import Image from 'next/image';
+import { useLanguage } from '../context/LanguageContext';
 
 function HeroSection() {
+  const { t } = useLanguage();
+
   return (
     // Outer wrapper for background grid and padding
     <div className="min-h-[calc(110vh-7rem)] flex items-center px-4 md:px-8 pt-6 md:pt-8">
@@ -13,13 +18,14 @@ function HeroSection() {
           {/* Left Column: Title and Description */}
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0 p-4">
             <span className="text-2xl text-gray-900 dark:text-white leading-tight">
-              Hi, I am
+              {t('hero.greeting')}
             </span>
             <h3 className="text-5xl md:text-4xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              Arfan Dwi Sukmajaya
+              {t('hero.name')}
             </h3>
             <p className="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-lg mx-auto md:mx-0">
-              Hi, I’m Arfan Dwi Sukmajaya. I’m a Fullstack Developer who loves turning ideas into high-quality, scalable web applications. With hands-on experience in both frontend and backend development, I create solutions that are not just functional, but also fast, reliable, and user-friendly.            </p>
+              {t('hero.description')}
+            </p>
 
             {/* Button */}
             <div className="mt-8 flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
