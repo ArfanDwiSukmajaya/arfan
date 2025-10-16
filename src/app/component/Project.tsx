@@ -1,51 +1,60 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 
 function ProjectsSection() {
   const { t } = useLanguage();
+  const [imageErrors, setImageErrors] = useState<{ [key: string]: boolean }>({});
+
+  const handleImageError = (imageSrc: string) => {
+    setImageErrors(prev => ({ ...prev, [imageSrc]: true }));
+  };
+
+  const getImageSrc = (originalSrc: string) => {
+    return imageErrors[originalSrc] ? '/default.png' : originalSrc;
+  };
   const projects = [
     {
-      title: "WMP GNow",
-      description: "A comprehensive learning management system tailored for student lab experiences. Key features include attendance tracking, live Arduino coding, and interactive virtual sessions.",
+      title: t('project.wmp_gnow.title'),
+      description: t('project.wmp_gnow.description'),
       image: "/gnow.png",
       codeLink: "",
       detailLink: "/projects/wmp-gnow",
     },
     {
-      title: "Riplay",
-      description: "A system for managing contract documents with digital signature and document management. My role involved building the mobile application and backend API.",
+      title: t('project.riplay.title'),
+      description: t('project.riplay.description'),
       image: "/riplay.png",
       codeLink: "",
       detailLink: "/projects/riplay",
     },
     {
-      title: "4c-ilabs",
-      description: "A comprehensive learning management system tailored for student lab experiences. Key features include attendance tracking, live Arduino coding, and interactive virtual sessions.",
+      title: t('project.4c_ilabs.title'),
+      description: t('project.4c_ilabs.description'),
       image: "/4c-ilabs.png",
       codeLink: "",
       detailLink: "/projects/4c-ilabs",
     },
     {
-      title: "BASIS",
-      description: "A platform for student discussion and survey. My role involved building the responsive user interface to simplify item management and facilitate community-based transactions.",
+      title: t('project.basis.title'),
+      description: t('project.basis.description'),
       image: "/basis.png",
       codeLink: "",
       detailLink: "/projects/basis",
     },
     {
-      title: "Tukerin",
-      description: " A platform for item exchange, auctions, and charitable donations. My role involved building the responsive user interface to simplify item management and facilitate community-based transactions.",
+      title: t('project.tukerin.title'),
+      description: t('project.tukerin.description'),
       image: "/tukerin.png",
       codeLink: "https://github.com/orgs/CPI-FS-SDG-12-C/repositories",
       detailLink: "/projects/tukerin",
     },
     {
-      title: "Text-Summarization",
-      description: "Developed an AI-based language model application to automatically summarize news articles and long-form texts. Implemented the CLSA (Cross Latent Semantic Analysis) method to extract key information and generate coherent summaries.",
+      title: t('project.text_summarization.title'),
+      description: t('project.text_summarization.description'),
       image: "/text-sumarization.png",
       codeLink: "https://github.com/ArfanDwiSukmajaya/Text-Summarization-CLSA",
       detailLink: "/projects/text-summarization",
@@ -65,32 +74,30 @@ function ProjectsSection() {
       {/* Wadah utama grid untuk proyek */}
       <div className="w-full max-w-[80vw] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
-          <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 border dark:border-gray-700 shadow-2xs">
+          <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 border dark:border-gray-700 shadow-2xs flex flex-col h-full">
             {/* Gambar atau Thumbnail Proyek */}
-            <Image src={project.image} alt={project.title} width={640} height={360} className="w-full h-auto rounded-lg mb-4" />
+            <Image
+              src={getImageSrc(project.image)}
+              alt={project.title}
+              width={640}
+              height={360}
+              className="w-full h-auto rounded-lg mb-4"
+              onError={() => handleImageError(project.image)}
+            />
 
             {/* Judul dan Deskripsi */}
             <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mb-2">{project.title}</h3>
-            <p className="text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{project.description}</p>
+            <p className="text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 flex-grow">{project.description}</p>
 
             {/* Tombol Aksi */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mt-auto">
               <Link
                 href={project.detailLink}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
+                className="flex items-center justify-center px-6 py-3 border-2 border-yellow-500 dark:border-yellow-400 text-base font-semibold rounded-full text-yellow-500 dark:text-yellow-400 bg-white dark:bg-gray-800 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:text-yellow-600 dark:hover:text-yellow-300 transition-colors duration-200"
               >
                 {t('portfolio.view_details')}
               </Link>
-              {project.codeLink && (
-                <a
-                  href={project.codeLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-200"
-                >
-                  {t('portfolio.view_code')}
-                </a>
-              )}
+
             </div>
           </div>
         ))}

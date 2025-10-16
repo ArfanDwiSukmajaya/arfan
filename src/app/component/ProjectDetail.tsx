@@ -28,6 +28,7 @@ interface ProjectDetailProps {
 
 function ProjectDetail({ project }: ProjectDetailProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [imageError, setImageError] = useState<{ [key: string]: boolean }>({});
   const { t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
 
@@ -37,6 +38,14 @@ function ProjectDetail({ project }: ProjectDetailProps) {
 
   const closeModal = () => {
     setSelectedImage(null);
+  };
+
+  const handleImageError = (imageSrc: string) => {
+    setImageError(prev => ({ ...prev, [imageSrc]: true }));
+  };
+
+  const getImageSrc = (originalSrc: string) => {
+    return imageError[originalSrc] ? '/default.png' : originalSrc;
   };
 
   return (
@@ -93,11 +102,12 @@ function ProjectDetail({ project }: ProjectDetailProps) {
           {/* Hero Image */}
           <div className="relative w-full h-96 md:h-[500px] rounded-lg overflow-hidden shadow-lg">
             <Image
-              src={project.image}
+              src={getImageSrc(project.image)}
               alt={project.title}
               fill
               className="object-cover"
               priority
+              onError={() => handleImageError(project.image)}
             />
           </div>
         </div>
@@ -123,7 +133,7 @@ function ProjectDetail({ project }: ProjectDetailProps) {
                   <svg className="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-gray-700">{feature}</span>
+                  <span className="text-gray-800 dark:text-gray-300">{feature}</span>
                 </li>
               ))}
             </ul>
@@ -145,14 +155,15 @@ function ProjectDetail({ project }: ProjectDetailProps) {
                     <div
                       key={index}
                       className="relative group cursor-pointer"
-                      onClick={() => openModal(screenshot)}
+                      onClick={() => openModal(getImageSrc(screenshot))}
                     >
                       <Image
-                        src={screenshot}
+                        src={getImageSrc(screenshot)}
                         alt={`Figma Design ${index + 1}`}
                         width={400}
                         height={300}
                         className="w-full h-auto rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                        onError={() => handleImageError(screenshot)}
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded-lg flex items-center justify-center">
                         <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,14 +186,15 @@ function ProjectDetail({ project }: ProjectDetailProps) {
                   <div
                     key={index}
                     className="relative group cursor-pointer"
-                    onClick={() => openModal(screenshot)}
+                    onClick={() => openModal(getImageSrc(screenshot))}
                   >
                     <Image
-                      src={screenshot}
+                      src={getImageSrc(screenshot)}
                       alt={`Project Screenshot ${index + 1}`}
                       width={600}
                       height={400}
                       className="w-full h-auto rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                      onError={() => handleImageError(screenshot)}
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300 rounded-lg flex items-center justify-center">
                       <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,7 +241,7 @@ function ProjectDetail({ project }: ProjectDetailProps) {
           <section>
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">My Role & Responsibilities</h2>
             <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-md p-6 rounded-lg shadow-sm border dark:border-gray-700">
-              <p className="text-lg text-gray-700 mb-6 font-medium">{project.role}</p>
+              <p className="text-lg text-gray-800 dark:text-gray-300 mb-6 font-medium">{project.role}</p>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-200 mb-4">Responsibilities:</h3>
               <ul className="space-y-3">
                 {project.responsibilities.map((responsibility, index) => (
@@ -237,7 +249,7 @@ function ProjectDetail({ project }: ProjectDetailProps) {
                     <svg className="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    <span className="text-gray-700">{responsibility}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{responsibility}</span>
                   </li>
                 ))}
               </ul>
@@ -297,12 +309,13 @@ function ProjectDetail({ project }: ProjectDetailProps) {
               </svg>
             </button>
             <Image
-              src={selectedImage}
+              src={getImageSrc(selectedImage)}
               alt="Zoomed Image"
               width={1200}
               height={800}
               className="max-w-full max-h-full object-contain rounded-lg"
               onClick={(e) => e.stopPropagation()}
+              onError={() => handleImageError(selectedImage)}
             />
           </div>
         </div>

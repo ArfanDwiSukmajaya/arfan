@@ -20,7 +20,7 @@ function ContactSection() {
       <div className="w-full max-w-[90vw] md:max-w-[70vw] mx-auto bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700 shadow-2xs p-8 md:p-10">
         <div className="flex flex-col items-center text-center">
           <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mb-8">
-            Let&apos;s connect! I am open to new project collaborations and job opportunities. You can reach me through the links below.
+            {t('contact.description')}
           </p>
 
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 md:space-x-8 items-center justify-center w-full">

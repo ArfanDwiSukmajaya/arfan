@@ -7,15 +7,15 @@ function ExperienceTimeline() {
   const { t } = useLanguage();
   const experiences = [
     {
-      company: "Adira Finance",
-      role: "Software Developer",
-      date: "Februari 2023 - Now",
+      company: t('experience.adira_finance.company'),
+      role: t('experience.adira_finance.role'),
+      date: t('experience.adira_finance.date'),
       description: [
-        "Fully responsible for the application development lifecycle, from design and implementation to maintenance.",
-        "Revamped and modernized legacy systems using cutting-edge technologies, transforming platforms like G-NOW and Riplay into high-performance, scalable solutions.",
-        "Optimized and improved system performance on projects such as Enhance Pencairan Dana NDS Fase 3 and Enhancement WMP Fase 1.",
-        "Participated in the development of JATI (Jaringan Automotif Terintegrasi Interaktif) to integrate automotive services.",
-        "Worked within an Agile team to address technical challenges and ensure timely project completion.",
+        t('experience.adira_finance.description.1'),
+        t('experience.adira_finance.description.2'),
+        t('experience.adira_finance.description.3'),
+        t('experience.adira_finance.description.4'),
+        t('experience.adira_finance.description.5'),
       ],
     },
   ];
