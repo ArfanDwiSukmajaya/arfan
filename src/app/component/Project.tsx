@@ -75,25 +75,27 @@ function ProjectsSection() {
       <div className="w-full max-w-[80vw] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
           <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 border dark:border-gray-700 shadow-2xs flex flex-col h-full">
-            {/* Gambar atau Thumbnail Proyek */}
-            <Image
-              src={getImageSrc(project.image)}
-              alt={project.title}
-              width={640}
-              height={360}
-              className="w-full h-auto rounded-lg mb-4"
-              onError={() => handleImageError(project.image)}
-            />
+            {/* Gambar atau Thumbnail Proyek - Fixed height */}
+            <div className="w-full h-48 mb-4 rounded-lg overflow-hidden">
+              <Image
+                src={getImageSrc(project.image)}
+                alt={project.title}
+                width={640}
+                height={360}
+                className="w-full h-full object-cover"
+                onError={() => handleImageError(project.image)}
+              />
+            </div>
 
             {/* Judul dan Deskripsi */}
             <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mb-2">{project.title}</h3>
-            <p className="text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 flex-grow">{project.description}</p>
+            <p className="text-base text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 flex-grow min-h-[4.5rem]">{project.description}</p>
 
             {/* Tombol Aksi */}
             <div className="flex space-x-4 mt-auto">
               <Link
                 href={project.detailLink}
-                className="flex items-center justify-center px-6 py-3 border-2 border-yellow-500 dark:border-yellow-400 text-base font-semibold rounded-full text-yellow-500 dark:text-yellow-400 bg-white dark:bg-gray-800 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:text-yellow-600 dark:hover:text-yellow-300 transition-colors duration-200"
+                className="flex items-center justify-center px-4 py-2 border-2 border-yellow-500 dark:border-yellow-400 text-sm font-semibold rounded-full text-yellow-500 dark:text-yellow-400 bg-white dark:bg-gray-800 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:text-yellow-600 dark:hover:text-yellow-300 transition-colors duration-200"
               >
                 {t('portfolio.view_details')}
               </Link>
