@@ -44,7 +44,7 @@ export default function RiplayPage() {
       t('project.riplay.responsibilities.14')
     ],
     challenge: t('project.riplay.challenge'),
-    solution: t('project.riplay.solution_detailed'),
+    solution: t('project.riplay.solution'),
     features: [
       t('project.riplay.features.1'),
       t('project.riplay.features.2'),

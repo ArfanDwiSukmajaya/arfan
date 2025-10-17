@@ -89,9 +89,9 @@ export default function WmpGnowPage() {
       "/figma/wmp-gnow-design.png"
     ],
     additionalScreenshots: [
+      "/projects/wmp-gnow-login.png",
       "/projects/wmp-gnow-dashboard.png",
-      "/projects/wmp-gnow-homepage.png",
-      "/projects/wmp-gnow-attendance.png"
+      "/projects/wmp-gnow-tacmax.png"
     ]
   };
 
