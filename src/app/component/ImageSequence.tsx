@@ -68,22 +68,30 @@ const ImageSequence: React.FC<ImageSequenceProps> = ({ frameCount, baseUrl, exte
 
   useEffect(() => {
     const preloadedImages: HTMLImageElement[] = [];
+    imagesRef.current = preloadedImages; // Populated early
     let loadedCount = 0;
 
     for (let i = 1; i <= frameCount; i++) {
-        const img = new Image();
-        const frameNumber = i.toString().padStart(3, '0');
-        img.src = `${baseUrl}${frameNumber}${extension}`;
-        img.onload = () => {
-            loadedCount++;
-            if (loadedCount === 1) {
-              renderCanvas(0);
-            }
-            if (loadedCount === frameCount) {
-                setLoaded(true);
-            }
-        };
-        preloadedImages.push(img);
+      const img = new Image();
+      const frameNumber = i.toString().padStart(3, '0');
+      img.src = `${baseUrl}${frameNumber}${extension}`;
+      img.onload = () => {
+        loadedCount++;
+        // Specifically render the first frame as soon as it's ready
+        if (i === 1) {
+          renderCanvas(0);
+        }
+        if (loadedCount === frameCount) {
+          setLoaded(true);
+          // Final render of current index once all are done to be safe
+          renderCanvas(currentIndexRef.current);
+        }
+      };
+      img.onerror = () => {
+        console.error(`Failed to load image: ${img.src}`);
+        loadedCount++; // Count it anyway to avoid stalling the 'loaded' state
+      };
+      preloadedImages.push(img);
     }
     imagesRef.current = preloadedImages;
   }, [frameCount, baseUrl, extension, renderCanvas]);
@@ -99,6 +107,9 @@ const ImageSequence: React.FC<ImageSequenceProps> = ({ frameCount, baseUrl, exte
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial update
+    updateFrame();
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (requestRef.current !== null) cancelAnimationFrame(requestRef.current);
