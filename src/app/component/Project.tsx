@@ -74,7 +74,7 @@ function ProjectsSection() {
       {/* Wadah utama grid untuk proyek */}
       <div className="w-full max-w-[80vw] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
-          <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 border dark:border-gray-700 shadow-2xs flex flex-col h-full">
+          <div key={index} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-lg p-6 border dark:border-gray-700 shadow-md flex flex-col h-full">
             {/* Gambar atau Thumbnail Proyek - Fixed height */}
             <div className="w-full h-48 mb-4 rounded-lg overflow-hidden">
               <Image

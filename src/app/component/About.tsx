@@ -17,7 +17,7 @@ function About() {
       </div>
 
       {/* Wadah utama konten dengan lebar responsif */}
-      <div className="w-full max-w-[90vw] md:max-w-[70vw] mx-auto bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700 shadow-2xs p-8 md:p-10">
+      <div className="w-full max-w-[90vw] md:max-w-[70vw] mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl border dark:border-gray-700 shadow-md p-8 md:p-10">
         <div className="flex flex-col md:flex-row items-center md:items-start">
           {/* Kolom Kiri: Teks Informasi */}
           <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10">

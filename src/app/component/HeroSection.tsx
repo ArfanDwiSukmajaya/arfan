@@ -4,45 +4,124 @@ import React from 'react';
 import Image from 'next/image';
 import { useLanguage } from '../context/LanguageContext';
 
-function HeroSection() {
+function HeroSection({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) {
   const { t } = useLanguage();
+  const [displayText, setDisplayText] = React.useState({ greeting: '', name: '' });
+  const [showCursor, setShowCursor] = React.useState(true);
+  const [canStart, setCanStart] = React.useState(false);
+
+  const greeting = t('hero.greeting');
+  const name = t('hero.name');
+
+  // Listen to scroll to start typing when the person is "sitting" (around 15% scroll)
+  React.useEffect(() => {
+    const handleStartScroll = () => {
+      if (!containerRef.current) return;
+      const container = containerRef.current;
+      const containerTop = container.offsetTop;
+      const containerHeight = container.offsetHeight;
+      const scrollY = window.scrollY;
+      const scrollRange = containerHeight - window.innerHeight;
+      const relativeScroll = Math.max(0, Math.min(scrollRange, scrollY - containerTop));
+      const scrollFraction = relativeScroll / scrollRange;
+
+      if (scrollFraction > 0.15 && !canStart) {
+        setCanStart(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleStartScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleStartScroll);
+  }, [containerRef, canStart]);
+
+  React.useEffect(() => {
+    if (!canStart) return;
+
+    let greetingIndex = 0;
+    let nameIndex = 0;
+    const typingSpeed = 120; // Slower speed
+    const waitBeforeRestart = 3000; // 3 seconds at the end
+
+    let typeGreeting: NodeJS.Timeout;
+    let typeName: NodeJS.Timeout;
+    let restartTimeout: NodeJS.Timeout;
+
+    const startTyping = () => {
+      greetingIndex = 0;
+      nameIndex = 0;
+      setDisplayText({ greeting: '', name: '' });
+
+      typeGreeting = setInterval(() => {
+        if (greetingIndex <= greeting.length) {
+          setDisplayText(prev => ({ ...prev, greeting: greeting.slice(0, greetingIndex) }));
+          greetingIndex++;
+        } else {
+          clearInterval(typeGreeting);
+          // Start typing name after greeting
+          typeName = setInterval(() => {
+            if (nameIndex <= name.length) {
+              setDisplayText(prev => ({ ...prev, name: name.slice(0, nameIndex) }));
+              nameIndex++;
+            } else {
+              clearInterval(typeName);
+              // Wait then restart the loop
+              restartTimeout = setTimeout(() => {
+                startTyping();
+              }, waitBeforeRestart);
+            }
+          }, typingSpeed);
+        }
+      }, typingSpeed);
+    };
+
+    startTyping();
+
+    const cursorBlink = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+
+    return () => {
+      clearInterval(typeGreeting);
+      clearInterval(typeName);
+      clearInterval(cursorBlink);
+      clearTimeout(restartTimeout);
+    };
+  }, [canStart, greeting, name]);
 
   return (
-    // Outer wrapper for background grid and padding
-    <div className="min-h-[calc(110vh-7rem)] flex items-center px-4 md:px-8 pt-6 md:pt-8">
+    // Outer wrapper for hero content
+    <div className="min-h-screen w-full flex items-center justify-start px-6 md:pl-[15%] lg:pl-[20%] transition-opacity duration-300 pointer-events-none">
 
-      {/* Main content wrapper with responsive width */}
-      <div className="w-full max-w-[90vw] md:max-w-[70vw] mx-auto bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700 shadow-2xs p-10">
+      <div className="w-full max-w-5xl text-left z-10 pointer-events-auto flex justify-start">
+        
+        {/* Glassmorphism Card for Text Content */}
+        <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-2xl inline-block min-h-[220px]">
+          <div className="flex flex-col items-start">
+            {/* Main Title and Description */}
+            <div className="w-full">
+              <span className="text-lg md:text-xl text-gray-950 dark:text-white leading-tight block mb-2 font-semibold drop-shadow-xl min-h-[1.5em]">
+                {displayText.greeting}
+                {displayText.greeting.length < greeting.length && <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} ml-1`}>|</span>}
+              </span>
+              <h3 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-8 tracking-tighter whitespace-nowrap min-h-[1.2em]">
+                <span className="bg-gradient-to-r from-gray-950 via-blue-900 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent drop-shadow-md">
+                  {displayText.name}
+                </span>
+                {displayText.greeting.length >= greeting.length && displayText.name.length <= name.length && <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} ml-1 text-gray-900 dark:text-white`}>|</span>}
+              </h3>
 
-        <div className="flex flex-col md:flex-row items-center">
-          {/* Left Column: Title and Description */}
-          <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0 p-4">
-            <span className="text-2xl text-gray-900 dark:text-white leading-tight">
-              {t('hero.greeting')}
-            </span>
-            <h3 className="text-5xl md:text-4xl font-extrabold leading-tight bg-gradient-to-r from-gray-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              {t('hero.name')}
-            </h3>
-            <p className="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-lg mx-auto md:mx-0">
-              {t('hero.description')}
-            </p>
-
-            {/* Button */}
-            <div className="mt-8 flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-              <a href="#about" className="flex items-center justify-center px-6 py-3 border-2 border-yellow-500 dark:border-yellow-400 text-base font-semibold rounded-full text-yellow-500 dark:text-yellow-400 bg-white dark:bg-gray-800 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:text-yellow-600 dark:hover:text-yellow-300 transition-colors duration-200">
-                Explore
-                <span className="ml-2">→</span>
-              </a>
+              {/* Button */}
+              <div className="flex flex-col sm:flex-row">
+                <a href="#about" className="group flex items-center justify-center px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-black text-base font-bold rounded-full transition-all duration-300 shadow-[0_10px_20px_rgba(234,179,8,0.2)] hover:shadow-[0_15px_30px_rgba(234,179,8,0.3)] hover:-translate-y-1">
+                  Explore
+                  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+              </div>
             </div>
-          </div>
-
-          {/* Right Column: Visual Element */}
-          <div className="md:w-1/2 flex justify-center items-center relative animate-float shadow-2xs">
-            <Image src="/me.svg" alt="Ilustrasi diri" width={512} height={512} className="w-full h-auto max-w-sm" priority />
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 

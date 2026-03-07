@@ -36,7 +36,7 @@ function ExperienceTimeline() {
         {experiences.map((exp, index) => (
           <div key={index} className="mb-10 relative">
             {/* Kotak konten pengalaman */}
-            <div className="rounded-lg md:p-8 shadow-md sm:ml-8 bg-white dark:bg-gray-800 border dark:border-gray-700">
+            <div className="rounded-lg md:p-8 shadow-lg sm:ml-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border dark:border-gray-700">
               <div className="flex justify-between items-center mb-2 flex-wrap">
                 <h3 className="text-lg md:text-xl font-bold text-gray-800 dark:text-white">{exp.company}</h3>
                 <span className="inline-flex items-center rounded-md bg-purple-400/10 dark:bg-purple-400/20 px-2 py-1 text-xs font-medium text-purple-400 dark:text-purple-300 inset-ring inset-ring-purple-400/30">{exp.date}</span>

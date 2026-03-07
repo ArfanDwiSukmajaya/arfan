@@ -36,7 +36,7 @@ function FloatingSkills() {
       </div>
 
       {/* Wadah utama konten dengan lebar responsif */}
-      <div className="w-full max-w-[90vw] md:max-w-[70vw] mx-auto bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700 shadow-2xs p-10 relative overflow-hidden min-h-[400px]">
+      <div className="w-full max-w-[90vw] md:max-w-[70vw] mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl border dark:border-gray-700 shadow-md p-10 relative overflow-hidden min-h-[400px]">
         <div className="absolute inset-0 flex items-center justify-center">
           {skills.map((skill, index) => {
             const positions = [
