@@ -3,7 +3,6 @@ import Link from 'next/link';
 import React from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
-import { useLanguage } from '../context/LanguageContext';
 
 interface MobileNavbarProps {
   isHidden: boolean;

@@ -1,7 +1,6 @@
 "use client";
 
 import React from 'react';
-import Image from 'next/image';
 import { useLanguage } from '../context/LanguageContext';
 
 function HeroSection({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) {
